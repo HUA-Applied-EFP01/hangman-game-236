@@ -95,5 +95,4 @@ def play_hangman():
     else:
         print("Thanks for playing!")
 
-
 play_hangman()
