@@ -63,3 +63,43 @@ class HangmanGame:
             print("Whole word guesses left:", self.word_guesses_left)
             return False  # επιστροφή False αν το παιχνίδι δεν έχει ολοκληρωθεί
 
+
+
+def play_hangman():
+    time.sleep(.6)
+    player1 = input("Hello Player 1! Enter your name: ")
+    time.sleep(.6)
+    player2 = input("Hello Player 2! Enter your name: ")
+    time.sleep(.8)
+    word_to_guess = input(
+        f"Let the game begin! {player1.capitalize()}, enter a word for {player2.capitalize()} to guess: ")
+
+    game = HangmanGame(word_to_guess)
+
+    while not game.check_game_status():  # όσο το παιχνίδι ΔΕΝ έχει ολοκληρωθεί
+        time.sleep(1)
+        whole_word = input(f"{player2.capitalize()} do you want to guess the whole word? (yes/no): ")
+        while whole_word.lower() != 'yes' and whole_word.lower() != 'no':
+            print("Please type yes or no")
+            whole_word = input("Do you want to guess the whole word? (yes/no): ")
+        if whole_word == 'yes':
+            time.sleep(.7)
+            guess = input(f"{player2.capitalize()} enter the whole word: ")
+            game.make_word_guess(guess)  # την καλούμε για να επεξεργαστεί την μαντεψιά του παίκτη
+        elif whole_word == 'no':
+            time.sleep(.6)
+            guess = input(f"{player2.capitalize()} enter a letter: ")
+            game.make_guess(guess)  # την καλούμε για να επεξεργαστεί την μαντεψιά του παίκτη
+
+    play_again = input("Do you want to play again? (yes/no): ")  # ερώτηση εάν ο παίκτης θέλει να παίξει ξανά
+    while play_again.lower() != 'yes' and play_again.lower() != 'no':
+        print("Please type yes or no")
+        play_again = input("Do you want to play again? (yes/no): ")
+    if play_again.lower() == 'yes':
+        print("Thanks for choosing to play again!")
+        play_hangman()
+    else:
+        print("Thanks for playing!")
+
+
+play_hangman()
